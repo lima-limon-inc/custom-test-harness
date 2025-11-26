@@ -1,0 +1,17 @@
+[package]
+name = "midenc-harness-macros"
+
+[lib]
+path = "src/lib.rs"
+crate-type = ["cdylib"]
+
+
+[dependencies]
+syn = { version = "2.0", features = [
+    "full",
+    "parsing",
+    "derive",
+    "extra-traits",
+    "printing",
+] }
+

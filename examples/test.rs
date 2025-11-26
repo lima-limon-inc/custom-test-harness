@@ -3,3 +3,7 @@ fn test() {
     assert!(1, 1);
     println!("All good");
 }
+
+fn main() {
+    test()
+}
