@@ -137,7 +137,7 @@ dependencies = [
 
 [[package]]
 name = "midenc-harness-macros"
-version = "0.0.0"
+version = "0.1.0"
 dependencies = [
  "syn",
 ]

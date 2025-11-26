@@ -1,7 +1,11 @@
 [package]
 name = "miden-test-harness"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 
 [dev-dependencies]
 libtest-mimic = "0.8.1"
+
+[[example]]
+name = "basic"
+test = true
