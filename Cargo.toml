@@ -1,0 +1,14 @@
+[workspace]
+resolver = "2"
+
+members = [
+  "crates/test-macros",
+  "crates/test-lib",
+]
+
+[workspace.package]
+authors      = ["miden contributors"]
+edition      = "2024"
+license      = "MIT"
+rust-version = "1.90"
+version      = "0.12.0"
