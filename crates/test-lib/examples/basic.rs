@@ -1,14 +1,6 @@
-// mod test {
-//     #[test]
-//     fn test() {
-//         println!("Checking that math still works");
-//         assert!(1, 2);
-//         println!("All good");
-//     }
-// }
+use midenc_harness_macros::miden_test;
 
-use miden_test_harness::jamon;
-
-fn main() {
-    jamon();
+#[miden_test]
+pub fn ham() {
+    println!("Ham")
 }
