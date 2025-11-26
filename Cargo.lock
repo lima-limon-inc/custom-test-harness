@@ -133,12 +133,14 @@ name = "miden-test-harness"
 version = "0.1.0"
 dependencies = [
  "libtest-mimic",
+ "midenc-harness-macros",
 ]
 
 [[package]]
 name = "midenc-harness-macros"
 version = "0.1.0"
 dependencies = [
+ "quote",
  "syn",
 ]
 

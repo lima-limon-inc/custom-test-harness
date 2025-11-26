@@ -4,8 +4,9 @@ version = "0.1.0"
 edition = "2024"
 
 [lib]
-path = "src/lib.rs"
-crate-type = ["cdylib"]
+proc-macro = true
+# path = "src/lib.rs"
+# crate-type = ["cdylib"]
 
 
 [dependencies]
@@ -16,4 +17,6 @@ syn = { version = "2.0", features = [
     "extra-traits",
     "printing",
 ] }
+quote = "1.0"
+
 

@@ -6,6 +6,9 @@ edition = "2024"
 [dev-dependencies]
 libtest-mimic = "0.8.1"
 
+[dependencies]
+midenc-harness-macros = { path = "../test-macros" }
+
 [[example]]
 name = "basic"
 test = true

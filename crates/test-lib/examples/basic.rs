@@ -7,6 +7,8 @@
 //     }
 // }
 
+use miden_test_harness::jamon;
+
 fn main() {
-    println!("Hello");
+    jamon();
 }
