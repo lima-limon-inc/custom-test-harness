@@ -7,13 +7,15 @@ pub struct MidenTest {
 
 inventory::collect!(MidenTest);
 
-// Wrapper around inventory submit
-#[macro_export]
-macro_rules! miden_test_submit {
-    ($($value:tt)*) => {
-        inventory::submit!($tt)
-    };
-}
+pub use inventory::submit as miden_test_submit;
+
+// // Wrapper around inventory submit
+// #[macro_export]
+// macro_rules! miden_test_submit {
+//     ($($value:tt)*) => {
+//         inventory::submit!( $(value)* )
+//     };
+// }
 
 // Wrapper used to make normal rust function.
 fn runner(test: fn() -> ()) -> impl FnOnce() -> Result<(), libtest_mimic::Failed> + Send + 'static {

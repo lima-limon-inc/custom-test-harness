@@ -49,10 +49,12 @@ pub fn miden_test(
     let function = quote! {
         #prelude
 
-        // __inventory_miden_test::submit!(Test {
-        //     name: #fn_name_str.as_str(),
-        //     test_fn: #fn_name,
-        // });
+        __miden_test_harness::miden_test_submit!(
+            __miden_test_harness::MidenTest {
+                name: #fn_name_str.as_str(),
+                test_fn: #fn_name,
+            }
+        );
 
         #input_fn
     };
