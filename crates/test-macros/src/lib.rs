@@ -29,24 +29,17 @@ pub fn miden_test(
         quote! {
             // pub use inventory as __inventory_miden_test;
             // pub use libtest_mimic as __libtest_mimic_miden_test;
-
-            fn runner(
-                test: fn() -> (),
-            ) -> impl FnOnce() -> Result<(), __libtest_mimic_miden_test::Failed> + Send + 'static {
-                move || {
-                    test();
-                    Ok(())
-                }
-            }
+            pub use miden_test_harness as __miden_test_harness;
 
             fn main() {
-                let args = __libtest_mimic_miden_test::Arguments::from_args();
+                // let args = __libtest_mimic_miden_test::Arguments::from_args();
+                let args = __miden_test_harness::MidenTestArguments::from_args();
 
-                let tests = vec![__libtest_mimic_miden_test::Trial::test(#fn_name_str, runner(#fn_name)),
-                ];
-                let con = __libtest_mimic_miden_test::run(&args, tests);
+                // let tests = vec![__libtest_mimic_miden_test::Trial::test(#fn_name_str, runner(#fn_name)),
+                // ];
+                // let con = __libtest_mimic_miden_test::run(&args, tests);
 
-                con.exit()
+                // con.exit()
             }
 
         }
