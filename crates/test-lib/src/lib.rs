@@ -1,15 +1,28 @@
+// fn main() {
+//     println!("Hello")
+// }
+
+// mod test {
 use midenc_harness_macros::miden_test;
 
-fn main() {
-    println!("Hello")
+#[miden_test]
+fn jamon() {
+    1 + 1;
 }
 
-#[cfg(test)]
-mod test {
-    use midenc_harness_macros::miden_test;
+// fn main() {}
+// }
 
-    #[miden_test]
-    pub fn ham() {
-        println!("Ham")
-    }
-}
+// #[miden_test]
+// pub fn ham() {
+//     println!("Ham")
+// }
+// #[test]
+// fn bar() {
+//     panic!("")
+// }
+// }
+
+// fn main() {
+//     crate::test::main()
+// }
