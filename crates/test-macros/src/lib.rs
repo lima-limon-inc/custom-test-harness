@@ -27,19 +27,12 @@ pub fn miden_test(
             PROCESSED = true;
         };
         quote! {
-            // pub use inventory as __inventory_miden_test;
-            // pub use libtest_mimic as __libtest_mimic_miden_test;
             pub use miden_test_harness as __miden_test_harness;
 
             fn main() {
-                // let args = __libtest_mimic_miden_test::Arguments::from_args();
                 let args = __miden_test_harness::MidenTestArguments::from_args();
 
-                // let tests = vec![__libtest_mimic_miden_test::Trial::test(#fn_name_str, runner(#fn_name)),
-                // ];
-                // let con = __libtest_mimic_miden_test::run(&args, tests);
-
-                // con.exit()
+                __miden_test_harness::run(args);
             }
 
         }
@@ -51,7 +44,7 @@ pub fn miden_test(
 
         __miden_test_harness::miden_test_submit!(
             __miden_test_harness::MidenTest {
-                name: #fn_name_str.as_str(),
+                name: #fn_name_str,
                 test_fn: #fn_name,
             }
         );

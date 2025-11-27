@@ -9,14 +9,6 @@ inventory::collect!(MidenTest);
 
 pub use inventory::submit as miden_test_submit;
 
-// // Wrapper around inventory submit
-// #[macro_export]
-// macro_rules! miden_test_submit {
-//     ($($value:tt)*) => {
-//         inventory::submit!( $(value)* )
-//     };
-// }
-
 // Wrapper used to make normal rust function.
 fn runner(test: fn() -> ()) -> impl FnOnce() -> Result<(), libtest_mimic::Failed> + Send + 'static {
     move || {
@@ -27,6 +19,12 @@ fn runner(test: fn() -> ()) -> impl FnOnce() -> Result<(), libtest_mimic::Failed
 
 impl From<MidenTest> for libtest_mimic::Trial {
     fn from(value: MidenTest) -> Self {
+        libtest_mimic::Trial::test(value.name, runner(value.test_fn))
+    }
+}
+
+impl From<&MidenTest> for libtest_mimic::Trial {
+    fn from(value: &MidenTest) -> Self {
         libtest_mimic::Trial::test(value.name, runner(value.test_fn))
     }
 }
@@ -46,40 +44,15 @@ impl MidenTestArguments {
     }
 }
 
-pub fn run(args: MidenTestArguments, tests: Vec<MidenTest>) {
+pub fn run(args: MidenTestArguments) {
     let args = args.into();
-    let tests = tests.into_iter().map(|t| t.into()).collect();
+
+    let tests: Vec<libtest_mimic::Trial> = inventory::iter::<MidenTest>
+        .into_iter()
+        .map(|test| test.into())
+        .collect();
 
     let conclusion = libtest_mimic::run(&args, tests);
 
     conclusion.exit()
 }
-
-// fn main() {
-//     println!("Hello")
-// }
-
-// mod test {
-// use midenc_harness_macros::miden_test;
-
-// #[miden_test]
-// fn jamon() {
-//     1 + 1;
-// }
-
-// fn main() {}
-// }
-
-// #[miden_test]
-// pub fn ham() {
-//     println!("Ham")
-// }
-// #[test]
-// fn bar() {
-//     panic!("")
-// }
-// }
-
-// fn main() {
-//     crate::test::main()
-// }
