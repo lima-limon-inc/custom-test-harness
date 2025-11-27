@@ -1,4 +1,17 @@
 fn hello() {}
+
+struct Test {
+    pub name: &'static str,
+    pub test_fn: fn() -> Result<(), libtest_mimic::Failed>,
+}
+
+#[macro_export]
+macro_rules! inv_collect {
+    ($ty:ty) => {
+        inventory::collect!($ty);
+    };
+}
+
 // fn main() {
 //     println!("Hello")
 // }

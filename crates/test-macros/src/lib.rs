@@ -4,11 +4,6 @@ use syn::{parse_macro_input, parse_quote, Item, ItemFn};
 
 static mut PROCESSED: bool = false;
 
-struct Test {
-    pub name: &'static str,
-    pub test_fn: fn() -> Result<(), libtest_mimic::Failed>,
-}
-
 inventory::collect!(Test);
 
 #[proc_macro_attribute]
