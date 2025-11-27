@@ -159,8 +159,6 @@ dependencies = [
 name = "midenc-harness-macros"
 version = "0.1.0"
 dependencies = [
- "inventory",
- "libtest-mimic",
  "miden-test-harness",
  "quote",
  "syn",

@@ -18,7 +18,4 @@ syn = { version = "2.0", features = [
     "printing",
 ] }
 miden-test-harness    = { path = "../test-lib"    }
-
 quote = "1.0"
-libtest-mimic = "0.8.1"
-inventory = "0.3.21"
