@@ -1,5 +1,5 @@
 [package]
-name = "miden-test-harness"
+name = "miden-test-use-case"
 version = "0.1.0"
 edition = "2024"
 
@@ -8,10 +8,10 @@ libtest-mimic = "0.8.1"
 
 [dependencies]
 midenc-harness-macros = { path = "../test-macros" }
+miden-test-harness    = { path = "../test-lib"    }
 libtest-mimic = "0.8.1"
 inventory = "0.3.21"
 
-# [[test]]
-# harness = false
-# name = "lib"
-# path = "src/lib.rs"
+[[test]]
+harness = false
+name = "foo"

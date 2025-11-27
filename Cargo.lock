@@ -141,7 +141,18 @@ dependencies = [
 name = "miden-test-harness"
 version = "0.1.0"
 dependencies = [
+ "inventory",
  "libtest-mimic",
+ "midenc-harness-macros",
+]
+
+[[package]]
+name = "miden-test-use-case"
+version = "0.1.0"
+dependencies = [
+ "inventory",
+ "libtest-mimic",
+ "miden-test-harness",
  "midenc-harness-macros",
 ]
 

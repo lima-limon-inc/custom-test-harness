@@ -1,14 +1,15 @@
+fn hello() {}
 // fn main() {
 //     println!("Hello")
 // }
 
 // mod test {
-use midenc_harness_macros::miden_test;
+// use midenc_harness_macros::miden_test;
 
-#[miden_test]
-fn jamon() {
-    1 + 1;
-}
+// #[miden_test]
+// fn jamon() {
+//     1 + 1;
+// }
 
 // fn main() {}
 // }

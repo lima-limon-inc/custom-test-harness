@@ -3,12 +3,13 @@ use quote::quote;
 use syn::{parse_macro_input, parse_quote, Item, ItemFn};
 
 static mut PROCESSED: bool = false;
-// struct Test {
-//     pub name: &'static str,
-//     pub test_fn: fn() -> Result<(), libtest_mimic::Failed>,
-// }
 
-// inventory::collect!(Test);
+struct Test {
+    pub name: &'static str,
+    pub test_fn: fn() -> Result<(), libtest_mimic::Failed>,
+}
+
+inventory::collect!(Test);
 
 #[proc_macro_attribute]
 pub fn miden_test(
@@ -27,12 +28,13 @@ pub fn miden_test(
     let prelude = if unsafe { PROCESSED } {
         quote! {}
     } else {
+        // After including the PRELUDE once, we never include it again.
         unsafe {
             PROCESSED = true;
-        }
+        };
         quote! {
+            pub use inventory as __inventory_miden_test;
             pub use libtest_mimic as __libtest_mimic_miden_test;
-            // pub use inventory as __inventory_miden_test;
 
             fn runner(
                 test: fn() -> (),
@@ -56,8 +58,8 @@ pub fn miden_test(
         }
     };
 
+    // The prelude is only added once.
     let function = quote! {
-
         #prelude
 
         // __inventory_miden_test::submit!(Test {
