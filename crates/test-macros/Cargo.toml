@@ -1,15 +1,17 @@
 [package]
-name = "midenc-harness-macros"
+name = "miden-harness-macros"
 version = "0.1.0"
 edition = "2024"
 
 [lib]
 proc-macro = true
-# path = "src/lib.rs"
-# crate-type = ["cdylib"]
 
 
 [dependencies]
+# Miden dependencies
+miden-harness-lib     = { path = "../test-lib"    }
+
+# External dependencies
 syn = { version = "2.0", features = [
     "full",
     "parsing",
@@ -17,5 +19,4 @@ syn = { version = "2.0", features = [
     "extra-traits",
     "printing",
 ] }
-miden-test-harness    = { path = "../test-lib"    }
 quote = "1.0"

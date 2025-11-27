@@ -23,12 +23,12 @@ pub fn miden_test(
             PROCESSED = true;
         };
         quote! {
-            pub use miden_test_harness as __miden_test_harness;
+            pub use miden_harness_lib as __miden_harness_lib;
 
             fn main() {
-                let args = __miden_test_harness::MidenTestArguments::from_args();
+                let args = __miden_harness_lib::MidenTestArguments::from_args();
 
-                __miden_test_harness::run(args);
+                __miden_harness_lib::run(args);
             }
 
         }
@@ -37,8 +37,8 @@ pub fn miden_test(
     let function = quote! {
         #prelude
 
-        __miden_test_harness::miden_test_submit!(
-            __miden_test_harness::MidenTest {
+        __miden_harness_lib::miden_test_submit!(
+            __miden_harness_lib::MidenTest {
                 name: #fn_name_str,
                 test_fn: #fn_name,
             }

@@ -7,8 +7,8 @@ edition = "2024"
 libtest-mimic = "0.8.1"
 
 [dependencies]
-midenc-harness-macros = { path = "../test-macros" }
-miden-test-harness    = { path = "../test-lib"    }
+miden-harness-macros  = { path = "../test-macros" }
+miden-harness-lib     = { path = "../test-lib"    }
 
 [[test]]
 harness = false
