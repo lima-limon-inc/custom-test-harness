@@ -44,6 +44,7 @@ pub fn miden_test(
             }
         );
 
+        #[cfg(test)]
         #input_fn
     };
 
