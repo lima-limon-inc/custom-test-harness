@@ -7,7 +7,6 @@ edition = "2024"
 libtest-mimic = "0.8.1"
 
 [dependencies]
-midenc-harness-macros = { path = "../test-macros" }
 libtest-mimic = "0.8.1"
 inventory = "0.3.21"
 

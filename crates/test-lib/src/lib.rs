@@ -1,16 +1,12 @@
 fn hello() {}
 
-struct Test {
+// Only intended to be used by the macro crate
+pub struct MidenTest {
     pub name: &'static str,
     pub test_fn: fn() -> Result<(), libtest_mimic::Failed>,
 }
 
-#[macro_export]
-macro_rules! inv_collect {
-    ($ty:ty) => {
-        inventory::collect!($ty);
-    };
-}
+inventory::collect!(MidenTest);
 
 // fn main() {
 //     println!("Hello")

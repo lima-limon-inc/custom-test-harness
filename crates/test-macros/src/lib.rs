@@ -1,10 +1,9 @@
+use miden_test_harness::MidenTest;
 use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, parse_quote, Item, ItemFn};
 
 static mut PROCESSED: bool = false;
-
-inventory::collect!(Test);
 
 #[proc_macro_attribute]
 pub fn miden_test(
@@ -28,8 +27,8 @@ pub fn miden_test(
             PROCESSED = true;
         };
         quote! {
-            pub use inventory as __inventory_miden_test;
-            pub use libtest_mimic as __libtest_mimic_miden_test;
+            // pub use inventory as __inventory_miden_test;
+            // pub use libtest_mimic as __libtest_mimic_miden_test;
 
             fn runner(
                 test: fn() -> (),

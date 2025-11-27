@@ -143,7 +143,6 @@ version = "0.1.0"
 dependencies = [
  "inventory",
  "libtest-mimic",
- "midenc-harness-macros",
 ]
 
 [[package]]
@@ -162,6 +161,7 @@ version = "0.1.0"
 dependencies = [
  "inventory",
  "libtest-mimic",
+ "miden-test-harness",
  "quote",
  "syn",
 ]
