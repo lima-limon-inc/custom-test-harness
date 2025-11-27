@@ -9,8 +9,3 @@ libtest-mimic = "0.8.1"
 [dependencies]
 libtest-mimic = "0.8.1"
 inventory = "0.3.21"
-
-# [[test]]
-# harness = false
-# name = "lib"
-# path = "src/lib.rs"
