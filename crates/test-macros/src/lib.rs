@@ -2,7 +2,8 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, ItemFn};
 
-static mut PROCESSED: bool = false;
+static mut __PROCESSED: bool = false;
+
 
 #[proc_macro_attribute]
 pub fn miden_test(
@@ -15,12 +16,12 @@ pub fn miden_test(
     let fn_name = input_fn.sig.ident.clone();
 
     // We use PROCESSED in order to recreate C's #ifndef, and thus only generate a single main function.
-    let prelude = if unsafe { PROCESSED } {
+    let prelude = if unsafe { __PROCESSED } {
         quote! {}
     } else {
         // After including the PRELUDE once, we never include it again.
         unsafe {
-            PROCESSED = true;
+            __PROCESSED = true;
         };
         quote! {
             pub use miden_harness_lib as __miden_harness_lib;
