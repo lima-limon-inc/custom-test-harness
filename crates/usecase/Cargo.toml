@@ -11,5 +11,9 @@ miden-harness-macros  = { path = "../test-macros" }
 miden-harness-lib     = { path = "../test-lib"    }
 
 [[test]]
+name = "zar"
 harness = false
+
+[[test]]
 name = "foo"
+harness = false
