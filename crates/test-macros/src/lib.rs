@@ -1,9 +1,10 @@
+#![no_std]
+
 use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, ItemFn};
 
 static mut __PROCESSED: bool = false;
-
 
 #[proc_macro_attribute]
 pub fn miden_test(
@@ -12,7 +13,7 @@ pub fn miden_test(
 ) -> proc_macro::TokenStream {
     let input_fn = parse_macro_input!(item as ItemFn);
 
-    let fn_name_str = input_fn.sig.ident.to_string();
+    let fn_name_str = stringify!(input_fn.sig.ident.clone());
     let fn_name = input_fn.sig.ident.clone();
 
     // We use PROCESSED in order to recreate C's #ifndef, and thus only generate a single main function.
