@@ -24,7 +24,7 @@ pub fn miden_test(
             __PROCESSED = true;
         };
         quote! {
-            pub use miden_harness_lib as __miden_harness_lib;
+            use miden_harness_lib as __miden_harness_lib;
 
             fn main() {
                 let args = __miden_harness_lib::MidenTestArguments::from_args();
