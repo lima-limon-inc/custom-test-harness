@@ -11,16 +11,14 @@ pub fn miden_test(
 ) -> proc_macro::TokenStream {
     let input_fn = parse_macro_input!(item as ItemFn);
 
-    let fn_name_str = stringify!(input_fn.sig.ident.clone());
-    let fn_name = input_fn.sig.ident.clone();
-
+    let fn_ident = input_fn.sig.ident.clone();
+    let fn_name = fn_ident.clone().span().source_text().unwrap();
 
     let function = quote! {
-
-        __miden_harness_lib::miden_test_submit!(
-            __miden_harness_lib::MidenTest {
-                name: #fn_name_str,
-                test_fn: #fn_name,
+        miden_harness_lib::miden_test_submit!(
+            miden_harness_lib::MidenTest {
+                name: #fn_name,
+                test_fn: #fn_ident,
             }
         );
 
