@@ -36,19 +36,42 @@ pub fn miden_tests(
 ) -> proc_macro::TokenStream {
     let input_module = parse_macro_input!(item as syn::ItemMod);
 
-    let module = quote! {
-        use miden_harness_lib;
+    #[cfg(feature = "test-flag")]
+    fn is_test() -> bool {
+        true
+    }
 
+    #[cfg(not(feature = "test-flag"))]
+    fn is_test() -> bool {
+        false
+    }
 
-        #[cfg(test)]
-        #input_module
-
-        fn main() {
-            let args = miden_harness_lib::MidenTestArguments::from_args();
-
-            miden_harness_lib::run(args);
+    let module = if is_test() {
+        quote! {
+            #input_module
         }
+    } else {
+        quote! {}
     };
 
-    module.into()
+    let main_function = if is_test() {
+        quote! {
+            use miden_harness_lib;
+            fn main() {
+                let args = miden_harness_lib::MidenTestArguments::from_args();
+
+                miden_harness_lib::run(args);
+            }
+        }
+    } else {
+        quote! {}
+    };
+
+    let block = quote! {
+        #module
+
+        #main_function
+    };
+
+    block.into()
 }
