@@ -34,7 +34,19 @@ pub fn miden_tests(
     _attr: proc_macro::TokenStream,
     item: proc_macro::TokenStream,
 ) -> proc_macro::TokenStream {
-    let input_module = parse_macro_input!(item as syn::ItemMod);
+    let mut input_module = parse_macro_input!(item as syn::ItemMod);
+
+    // We add an internal "use" here in order for the tests inside the `mod tests`
+    // block to use the `miden_test` macro without needing to pass the full path.
+    let internal_use = syn::parse_quote! {
+        use miden_harness_macros::miden_test;
+    };
+    input_module
+        .content
+        .as_mut()
+        .unwrap()
+        .1
+        .insert(0, internal_use);
 
     #[cfg(feature = "test-flag")]
     fn is_test() -> bool {
@@ -43,6 +55,7 @@ pub fn miden_tests(
 
     #[cfg(not(feature = "test-flag"))]
     fn is_test() -> bool {
+        // true // Used when debugging.
         false
     }
 
