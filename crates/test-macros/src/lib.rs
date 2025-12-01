@@ -4,8 +4,6 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, ItemFn};
 
-static mut __PROCESSED: bool = false;
-
 #[proc_macro_attribute]
 pub fn miden_test(
     _attr: proc_macro::TokenStream,
@@ -16,28 +14,8 @@ pub fn miden_test(
     let fn_name_str = stringify!(input_fn.sig.ident.clone());
     let fn_name = input_fn.sig.ident.clone();
 
-    // We use PROCESSED in order to recreate C's #ifndef, and thus only generate a single main function.
-    let prelude = if unsafe { __PROCESSED } {
-        quote! {}
-    } else {
-        // After including the PRELUDE once, we never include it again.
-        unsafe {
-            __PROCESSED = true;
-        };
-        quote! {
-            use miden_harness_lib as __miden_harness_lib;
-
-            fn main() {
-                let args = __miden_harness_lib::MidenTestArguments::from_args();
-
-                __miden_harness_lib::run(args);
-            }
-
-        }
-    };
 
     let function = quote! {
-        #prelude
 
         __miden_harness_lib::miden_test_submit!(
             __miden_harness_lib::MidenTest {
