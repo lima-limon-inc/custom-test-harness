@@ -30,3 +30,27 @@ pub fn miden_test(
 
     TokenStream::from(function)
 }
+
+#[proc_macro_attribute]
+pub fn miden_tests(
+    _attr: proc_macro::TokenStream,
+    item: proc_macro::TokenStream,
+) -> proc_macro::TokenStream {
+    let input_module = parse_macro_input!(item as syn::ItemMod);
+
+    let module = quote! {
+        use miden_harness_lib;
+
+
+        #[cfg(test)]
+        #input_module
+
+        fn main() {
+            let args = miden_harness_lib::MidenTestArguments::from_args();
+
+            miden_harness_lib::run(args);
+        }
+    };
+
+    module.into()
+}
