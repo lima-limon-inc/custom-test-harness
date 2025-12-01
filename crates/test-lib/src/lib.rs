@@ -1,3 +1,8 @@
+#![no_std]
+
+extern crate alloc;
+use alloc::vec::Vec;
+
 // Only intended to be used by the macro crate
 pub struct MidenTest {
     pub name: &'static str,
