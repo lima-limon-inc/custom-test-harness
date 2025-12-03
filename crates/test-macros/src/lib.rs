@@ -41,12 +41,30 @@ fn load_account(function: &mut syn::ItemFn) {
         found_packages_vars.push(package_var_binding.ident.clone());
     }
 
-    let var_name = found_packages_vars[0].clone();
+    if found_packages_vars.len() > 1 {
+        let identifiers = found_packages_vars
+            .iter()
+            .map(|ident| ident.to_string())
+            .collect::<Vec<String>>()
+            .join(", ");
+
+        panic!(
+            "
+Detected that all of the following variables are `Package`s: {identifiers}
+
+#[miden_test] only supports having a single `Package` in its argument list."
+        )
+    }
+
+    let Some(package_binding_name) = found_packages_vars.first() else {
+        // If there are no variables with `Package` as its value, simply ignore it.
+        return;
+    };
 
     let load_package: Vec<syn::Stmt> = syn::parse_quote! {
         let path = "/Users/fabri/Repositories/counter-contract_original/counter-contract/target/miden/debug/counter_contract.masp";
         let bytes = std::fs::read(path).unwrap();
-        let #var_name = miden_mast_package::Package::read_from_bytes(&bytes).unwrap();
+        let #package_binding_name = miden_mast_package::Package::read_from_bytes(&bytes).unwrap();
     };
 
     // We add the the lines required to load the generated Package.
